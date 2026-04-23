@@ -1,0 +1,55 @@
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+
+h1 {
+    font-size : 50px;
+    margin-bottom : 0px;
+}
+
+h6 {
+    font-size : 20px;
+    color :steelblue;
+    margin-top : 20px;
+}
+
+h1, h6 {
+    text-align: center;
+    font-family : Georgia, serif;
+    font-weight: 500; 
+    letter-spacing: 0.5px;
+}
+
+
+h6::after {
+    content:"";
+    display: block;
+    width: 500px;
+    height: 1px;
+    background-color: lightgray;
+    margin: 0 auto;
+}
+
+body {
+    font-family : 'Times New Roman', Times, serif;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.italic {
+    font-style: italic;
+}
+
+ul::after {
+    padding-left: 10px;
+}
+
+img {
+    display: block;
+    margin: 20px auto;
+    width: 120px;
+}
