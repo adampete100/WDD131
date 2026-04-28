@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="content">
+        <h1>HTML, CSS, and JS</h1>
+        
+        <p>The foundational technologies that power websites and web applications</p>
+        <hr>
+        <img src="https://wddbyui.github.io/wdd131/images/trifecta.png" alt="JS, CSS, and HTML logos">
+        <div id="topics">
+            <h2>HyperText Markup Language</h2>
+            <ul class="list">
+                <li>Defines the structure and content of a web page.</li>
+                <li>Without HTML there's nothing for the browser to display.</li>
+            </ul>
+            <h2>Cascading Style Sheets</h2>
+            <ul class="list">
+                <li>Controls how the HTML elements look.</li>
+                <li>Without CSS pages look plain and unstyled.</li>
+            </ul>
+            <h2>JavaScript</h2>
+            <ul class="list">
+                <li>Adds interactivity and dynamic behavior.</li>
+                <li>Without JavaScript nothing on the page responds dynamically to user actions.</li>
+            </ul>
+        </div>
+    </div>
+<script>
+        // Use document to access the DOM
+        console.log(document);
+        let firstList = document.querySelector(".list");
+        firstList.style.backgroundColor = "#FF0000";
+
+        let content = document.getElementById("content");
+        content.style.color = "#00FF00";
+
+        document.querySelector("img").setAttribute("src", "https://wddbyui.github.io/wdd131/images/portrait.png");
+        document.querySelector("img").setAttribute("alt", "This is a portrait of a person.");
+        document.querySelector("h1").textContent = "TITLE TEXT (or something)";
+
+        let headingText = document.querySelector("h1").textContent;
+        
+</script>
+</body>
+</html>
