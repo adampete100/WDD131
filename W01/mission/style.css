@@ -2,7 +2,7 @@
 .container {
     max-width: 500px;
     margin: 0 auto;
-    padding: 40px;
+    padding: 20px;
 }
 
 
@@ -14,7 +14,7 @@ h1 {
 h6 {
     font-size : 20px;
     color :steelblue;
-    margin-top : 20px;
+    margin-top : 10px;
 }
 
 h1, h6 {
@@ -25,14 +25,11 @@ h1, h6 {
 }
 
 
-h6::after {
-    content:"";
-    display: block;
+.divider {
+    margin-top: 0px auto;
     width: 500px;
-    height: 1px;
     background-color: lightgray;
-    margin: 0 auto;
-}
+} 
 
 body {
     font-family : 'Times New Roman', Times, serif;
