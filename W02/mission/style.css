@@ -1,0 +1,54 @@
+
+.container {
+    max-width: 500px;
+    margin: 0px auto;
+    margin-top: 50px;
+    padding: 100px;
+    border-color: grey;
+    border: 1px solid;
+}
+
+h1 {
+    font-size : 50px;
+    margin-bottom : 0px;
+}
+
+h6 {
+    font-size : 20px;
+    color :steelblue;
+    margin-top : 10px;
+}
+
+h1, h6 {
+    text-align: center;
+    font-family : Georgia, serif;
+    font-weight: 500; 
+    letter-spacing: 0.5px;
+}
+
+
+.divider {
+    margin-top: 0px auto;
+    width: 500px;
+    background-color: lightgray;
+} 
+
+body {
+    font-family : 'Times New Roman', Times, serif;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.italic {
+    font-style: italic;
+}
+
+ul::after {
+    padding-left: 10px;
+}
+
+img {
+    display: block;
+    margin: 20px auto;
+    width: 120px;
+}
