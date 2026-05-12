@@ -22,6 +22,9 @@ section {
   margin: 1em;
   border: 1px solid #ccc;
 }
+nav {
+    text-align: center;
+}
 nav a {
     padding: 20px;
     color: black;
@@ -36,12 +39,24 @@ nav a:hover {
     border: none;
     background-color: transparent;
 }
+.menu-btn div {
+    transition: transform 0.5s ease-in-out,
+                opacity 0.5s ease-in-out;
+}
 .bar1, .bar2, .bar3 {
     width: 30px;
     height: 4px;
     background-color: black;
     margin: 5px 0;
+}.change .bar1 {
+  transform: translate(0, 9px) rotate(-45deg);
 }
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  transform: translate(0, -9px) rotate(45deg);
+}
+
 footer {
     text-align: center;
 }
@@ -50,6 +65,10 @@ footer {
 main {
     display: grid;
     grid-template-columns: 1fr;
+}
+
+.hide a {
+    display: inline-block;
 }
 
 @media screen and (min-width: 500px) and (max-width: 1199px) {

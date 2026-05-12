@@ -1,8 +1,12 @@
 let selectButton = document.querySelector(".menu-btn")
-let selectNav = document.querySelector("nav")
 
-selectButton.addEventListener('click', showMenu());
+selectButton.addEventListener('click', handleMenuButtonClick); // Listen for click
 
-function showMenu() {
-    
+// Show dropdown menu when called
+function handleMenuButtonClick() {
+    console.log();
+    let selectNav = document.querySelector("nav")
+    // Toggle on/off dropdown menu
+    selectNav.classList.toggle("hide");
+    selectButton.classList.toggle("change")
 }
