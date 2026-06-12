@@ -1,0 +1,128 @@
+:root {
+    --bg-light-blue: #eef2f5;
+    --card-dark-green: #1c2d27; /* Dark green beneath the image */
+    --stats-bg-black: #111111;  /* Black text/stats block background */
+    --text-white: #ffffff;
+    --text-muted: #b3b3b3;
+    --border-radius: 14px;      /* Gentle card corner curve */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-light-blue);
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+main {
+    width: 100%;
+    max-width: 360px;
+}
+
+/* Card layout with drop shadow and custom background stacking */
+.card {
+    background-color: var(--card-dark-green);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Drop shadow from reference */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    background-color: var(--card-dark-green);
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Overlay Character Name directly on the bottom edge of the image area */
+#char-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 16px 20px;
+    color: var(--text-white);
+    font-size: 1.6rem;
+    font-weight: 600;
+    box-sizing: border-box;
+    background: linear-gradient(transparent, rgba(28, 45, 39, 0.9));
+}
+
+/* Black stats body background block */
+.card-content {
+    background-color: var(--stats-bg-black);
+    padding: 20px;
+    color: var(--text-white);
+}
+
+.card-content p {
+    font-size: 1.05rem;
+    margin: 10px 0;
+    color: var(--text-white);
+}
+
+.card-content strong {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Dead alert notification */
+.status-message {
+    color: #ff4d4d;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 0 5px 0;
+    font-size: 1.1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Controls layout matching the course reference styling */
+.controls {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+button {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-white);
+}
+
+button:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+button:disabled {
+    background-color: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.05);
+    cursor: not-allowed;
+}
