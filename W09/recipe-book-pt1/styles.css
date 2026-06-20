@@ -47,7 +47,7 @@ header {
 
 .search-box {
     display: flex;
-    border: 1px solid #777;
+    border: 2px solid #777;
     border-radius: 4px;
     overflow: hidden;
 }
@@ -83,11 +83,15 @@ main {
 .recipe-card {
     display: flex;
     flex-direction: column; /* Stacked vertically on mobile layout */
-    border: 1px solid #ddd;
+    border: 2px solid #777; /* Sharp outline border matching the search bar style */
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.recipe-image-container {
+    padding: 20px; /* Fits evenly with the text padding */
+    display: flex;
 }
 
 .recipe-image-container img {
