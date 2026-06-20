@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Card</title>
+    <meta name="description" content="An interactive dynamic character card built with HTML, CSS, and JavaScript objects for WDD 131.">
+    
+    <meta property="og:title" content="WDD 131 Character Card">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Check out my interactive dynamic RPG character card!">
+    <meta property="og:image" content="swamp-beast.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WDD 131 Character Card">
+    <meta name="twitter:description" content="Check out my interactive dynamic RPG character card!">
+    <meta name="twitter:image" content="swamp-beast.jpg">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main>
+        <div class="card" id="character-card">
+            <div class="image-container">
+                <img id="char-image" src="swamp-beast.jpg" alt="Swamp Beast Diplomat" width="360" height="300">
+                <h2 id="char-name">Loading...</h2>
+            </div>
+            
+            <div class="card-content">
+                <p><strong>Class:</strong> <span id="char-class"></span></p>
+                <p><strong>Level:</strong> <span id="char-level"></span></p>
+                <p><strong>Health:</strong> <span id="char-health"></span></p>
+                <p id="death-status" class="status-message hidden">Luke is now one with the Force.</p>
+                
+                <div class="controls">
+                    <button id="btn-attack">Attacked</button>
+                    <button id="btn-level">Level Up</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
