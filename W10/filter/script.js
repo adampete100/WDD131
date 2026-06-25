@@ -72,30 +72,36 @@ const hikes = [
   }
 ];
                 
-const searchButton = document.getElementById("search-button");
 
-searchButton.addEventListener("click", () => {
-  const userInput = document.getElementById("search").value.toLowerCase();
-  console.log("User input:", userInput);
+function search() {
 
-  const filteredHikes = hikes.filter((hike) => {
-    return hike.name.toLowerCase().includes(userInput) ||
-      hike.description.toLowerCase().includes(userInput);
-  });
-  console.log(filteredHikes);
+    let hikeQuery = input.value;
 
-  filteredHikes.sort(sortHikesByDifficulty);
-  console.log(filteredHikes);
-});
+    let filteredHikes = hikes.filter(function(hike){
+        return ( 
+            hike.name.toLowerCase().includes(hikeQuery.toLowerCase()) ||
+            hike.description.toLowerCase().includes(hikeQuery.toLowerCase()) || 
+            hike.tags.find(tag => tag.toLowerCase().includes(hikeQuery.toLowerCase()))
+        );
+    })
 
-function sortHikesByDifficulty(a, b) {
-  return a.difficulty - b.difficulty;
-      // clear out any previous content
+    function compareHikes(a,b) {
+    if (a.difficulty < b.difficulty) {
+        return -1;
+    } else if (a.difficulty > b.difficulty) {
+        return 1;
+    }
+    return 0;
+    }
+
+    let sortedHikes = filteredHikes.sort(compareHikes);
+
+    // clear out any previous content
     hikeContainer.innerHTML = '';
     // output onto screen
     sortedHikes.forEach(function(hike){
       renderHike(hike);
-    });
+    })
 }
 
 let hikeContainer = document.querySelector('#hike-container');
@@ -159,3 +165,4 @@ function init() {
 }
 
 init();
+                
