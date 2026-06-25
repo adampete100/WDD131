@@ -73,6 +73,7 @@ const hikes = [
 ];
                 
 
+
 function search() {
 
     let hikeQuery = input.value;
