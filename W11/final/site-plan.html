@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8" />
+		<title>Site Plan</title>
+		<link type="text/css" rel="stylesheet" href="site-plan.css" />
+	</head>
+
+	<body>
+		<header>
+			<h1>[Project name] Project Plan</h1>
+			<h2>FirstName LastName</h2>
+			<h2>WDD 131</h2>
+			<!-- In the header above, add the name or your site, your name and class number. For example if you are in section 3 you would put WDD 131.03 -->
+		</header>
+		<main>
+			
+			<hr />
+			<h2>Overview</h2>
+			<h3>Purpose</h3>
+			<p>The purpose of this site is to provide an intuitive, automated, and real-time digital scoreboard for the trick-taking card game Skull King, eliminating the need for manual pen-and-paper score tracking.</p>
+			<!-- change this -->
+
+			<h3>Audience</h3>
+			<p>The target audience includes casual and competitive board gamers, families, and friends who play Skull King and want a seamless way to track bids, tricks won, and complex bonus points across all ten rounds.</p>
+			<!-- change this -->
+
+			<h3>Dynamic elements</h3>
+			<p>Dynamic Round Tracking: JavaScript will dynamically alter the input form fields based on the current round (e.g., generating inputs for exactly 1 card/bid in Round 1, up to 10 cards/bids in Round 10).</p>
+			<p>Score Calculation Logic: The script will automatically calculate scores at the end of each round based on user-entered bids and actual tricks won, applying specific game rules 
+				(such as $+20$ points per trick for exact bids or $-10$ points per variance for missed bids).</p>
+			<p>Bonus Point Toggles: Dynamic checkboxes or drop-downs will allow players to easily add special bonus points 
+				earned during a round (e.g., capturing a Pirate for $+30$ points or the Skull King for $+50$ points), immediately updating the leaderboard.</p>
+			<p>Leaderboard Sorting: At the end of each round, JavaScript will 
+				recalculate totals and dynamically re-order a visual leaderboard table to display who is currently in the lead.</p>
+			<!-- change this -->
+
+			<hr />
+			<h2>Branding</h2>
+			<h3>Website Logo</h3>
+			<!-- Replace this with some sort of logo for your site.  A logo can be as simple as the name of your site in a nice font :) -->
+			<img src="#" alt="Logo image" />
+			<hr />
+			<h2>Style Guide</h2>
+
+			<h3>Color Palette</h3>
+			<!--  The colors you choose for a website are one of the most important decisions you will make. Follow the instructions on the activity in iLearn then return and replace the color codes below with the hex color codes (the 6 digit numbers that show at the bottom of each color) for the colors you have chosen below.  You should have at least 2 colors but do not have to fill in all 4 if you do not need them.  -->
+
+			<!-- Copy and paste the URL to your finished palette below Make sure to paste it into both spots -->
+			Palette URL:
+			<a
+				href="https://coolors.co/396e94-e7c24f-a43312-381d2a-aabd8c"
+				target="_blank"
+				>https://coolors.co/396e94-e7c24f-a43312-381d2a-aabd8c</a
+			>
+
+			<table class="colors">
+				<tbody>
+					<tr>
+						<th>Primary</th>
+						<th>Secondary</th>
+						<th>Accent 1</th>
+						<th>Accent 2</th>
+					</tr>
+					<!-- Replace the numbers in the boxes below with your hex color codes. Then switch to the site-plan.css file and change your colors there as well. -->
+					<tr>
+						<td class="primary">[#396E94]</td>
+						<td class="secondary">[#E7C24F]</td>
+						<td class="accent1">[#A43312]</td>
+						<td class="accent2"></td>
+					</tr>
+				</tbody>
+			</table>
+
+			
+
+			<h3>Pseudocode for your project</h3>
+
+			<p>
+				<pre><code>
+	// 1. INITIALIZE GAME STATE
+	Initialize an array of player objects: { name: "", currentScore: 0, bid: 0, tricksWon: 0, bonuses: 0 }
+	Set currentRound = 1
+
+	// 2. ROUND SETUP
+	FUNCTION startRound(roundNumber)
+		Display input fields for each player to enter their "Bid" (0 to roundNumber)
+		Hide the "Calculate Score" button until all bids are entered
+	END FUNCTION
+
+	// 3. SCORE CALCULATION
+	FUNCTION calculateRoundScores()
+		FOR each player object:
+			Read input values for "Tricks Won" and any checked "Bonus Items"
+			
+			IF bid == tricksWon THEN
+				IF bid == 0 THEN
+					roundScore = roundNumber * 10
+				ELSE
+					roundScore = bid * 20
+				END IF
+				roundScore = roundScore + bonuses  // Add Pirate, Skull King, or Map bonuses
+			ELSE
+				IF bid == 0 THEN
+					roundScore = roundNumber * -10
+				ELSE
+					roundScore = absoluteValue(bid - tricksWon) * -10
+				END IF
+			END IF
+			
+			player.currentScore = player.currentScore + roundScore
+		END FOR
+		
+		UpdateLeaderboard()
+		PrepareNextRound()
+	END FUNCTION
+
+	// 4. UPDATE INTERFACE
+	FUNCTION UpdateLeaderboard()
+		Sort the player array descending by currentScore
+		Render the new rankings to the HTML scoreboard table
+	END FUNCTION
+
+	FUNCTION PrepareNextRound()
+		IF currentRound < 10 THEN
+			currentRound = currentRound + 1
+			Trigger startRound(currentRound)
+		ELSE
+			Display final winner announcement and a "Reset Game" button
+		END IF
+	END FUNCTION
+			</code></pre>
+			</p>
+
+			<h3>Wireframes</h3>
+			<p>
+			This is a wireframe of the page I'll be building, it will all likely be on one page that updates dynamically
+			</p>
+			
+			<img src="images/skull-king-site-wireframe.png" alt="Wireframe for the Skull King Scoreboard"/>
+
+			<h3>Landing page</h3>
+			<p>
+				[Any additional details about home that the wireframe does not make
+				clear]
+			</p>
+			<img src="#" alt="home page wireframe" />
+
+			<h3>[Page 2 if needed]</h3>
+			<p>
+				[Any additional details about page 2 that the wireframe does not make
+				clear]
+			</p>
+			<img src="#" alt="page 2 wireframe" />
+		</main>
+	</body>
+</html>
