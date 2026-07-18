@@ -1,7 +1,10 @@
-// State Variables
-let players = [];
+// --- State Variables ---
+let players = []; // Pre-populated to match your screenshot
 let currentRound = 1;
 const maxRounds = 10;
+let gameScores = {};   // Tracks scores per player per round: { 'Adam': { 1: 20, 2: -10 } }
+let roundInputs = {};  // Tracks the exact text typed into inputs per round
+let krakenRounds = {}; // Remembers if Kraken was played on specific rounds
 let elements = {};
 
 // Directly binds DOM elements since the script is deferred in the head
@@ -13,7 +16,7 @@ function bindElements() {
     scoringRows: document.getElementById('scoring-rows'),
     prevRoundBtn: document.getElementById('prev-round'),
     nextRoundBtn: document.getElementById('next-round'),
-    currentRoundText: document.getElementById('current-round-text'),
+    currentRoundText: document.getElementById('nav-current-round'), // Matched to HTML ID
     scoringRoundText: document.getElementById('scoring-round-text'),
     tricksAvailable: document.getElementById('tricks-available'),
     roundDots: document.getElementById('round-dots'),
@@ -51,8 +54,11 @@ function setupEventListeners() {
   elements.prevRoundBtn.addEventListener('click', () => changeRound(-1));
   elements.nextRoundBtn.addEventListener('click', () => changeRound(1));
   
-  // Listen for changes to the global Kraken checkbox
-  elements.globalKrakenCheckbox.addEventListener('change', updateGlobalKraken);
+  // Listen for changes to the global Kraken checkbox and save state
+  elements.globalKrakenCheckbox.addEventListener('change', (e) => {
+    krakenRounds[currentRound] = e.target.checked;
+    updateGlobalKraken();
+  });
 }
 
 // Validates the input text, updates the array, clears the input field, and updates only the necessary UI pieces
@@ -85,7 +91,7 @@ function renderManifest() {
 
 // Updates text nodes and pagination dots based on the currentRound state
 function renderRoundNav() {
-  elements.currentRoundText.textContent = currentRound;
+  if (elements.currentRoundText) elements.currentRoundText.textContent = currentRound;
   elements.scoringRoundText.textContent = currentRound;
   
   elements.roundDots.innerHTML = Array.from({ length: maxRounds }, (_, i) => 
@@ -96,6 +102,7 @@ function renderRoundNav() {
   elements.nextRoundBtn.disabled = currentRound === maxRounds;
   
   // Sync the tricks available text and input limits based on current round/kraken state
+  elements.globalKrakenCheckbox.checked = krakenRounds[currentRound] || false;
   updateGlobalKraken();
 }
 
@@ -112,7 +119,7 @@ function updateGlobalKraken() {
     wonInput.max = availableTricks; // Update the HTML constraint
     
     // Clamp the value down dynamically if the Kraken destroyed a trick they previously claimed
-    if (parseInt(wonInput.value, 10) > availableTricks) {
+    if (wonInput.value !== '' && parseInt(wonInput.value, 10) > availableTricks) {
       wonInput.value = availableTricks;
     }
     
@@ -120,12 +127,11 @@ function updateGlobalKraken() {
   });
 }
 
-// Increments or decrements the round tracker, resets the global Kraken state, and refreshes the display
+// Increments or decrements the round tracker, saves history, and refreshes the display
 function changeRound(delta) {
   const newRound = currentRound + delta;
   if (newRound >= 1 && newRound <= maxRounds) {
     currentRound = newRound;
-    elements.globalKrakenCheckbox.checked = false; // Reset Kraken for the new round
     renderRoundNav();
     renderScoringTable();
   }
@@ -165,39 +171,91 @@ function appendPlayerRow(player, index) {
   const krakenPlayed = elements.globalKrakenCheckbox.checked;
   const availableTricks = krakenPlayed ? currentRound - 1 : currentRound;
   
+  // Look up saved inputs from history so values persist when switching rounds
+  const saved = (roundInputs[currentRound] && roundInputs[currentRound][player]) || { bid: '', won: '', bonus: '' };
+  
   const rowHtml = `
-    <div class="scoring-row" data-index="${index}">
+    <div class="scoring-row" data-index="${index}" data-player="${player}">
       <div class="player-name">${player}</div>
-      <div class="input-group"><label>BID</label><input type="number" class="number-input bid-input" min="0" max="${currentRound}" value="0"></div>
-      <div class="input-group"><label>WON</label><input type="number" class="number-input won-input" min="0" max="${availableTricks}" value="0"></div>
-      <div class="input-group"><label>BONUS</label><input type="number" class="number-input bonus-input" value="0" step="10"></div>
-      <div class="score-display score-positive" id="score-display-${index}">+0</div>
+      <div class="input-group">
+        <label>BID</label>
+        <input type="number" class="number-input bid-input" min="0" max="${currentRound}" placeholder="0" value="${saved.bid}">
+      </div>
+      <div class="input-group">
+        <label>WON</label>
+        <input type="number" class="number-input won-input" min="0" max="${availableTricks}" placeholder="0" value="${saved.won}">
+      </div>
+      <div class="input-group">
+        <label>BONUS</label>
+        <input type="number" class="number-input bonus-input" placeholder="0" step="10" value="${saved.bonus}">
+      </div>
+      <div class="score-wrapper">
+        <div id="score-display-${index}" class="score-display round-score score-zero">0</div>
+        <div id="total-score-${index}" class="total-score">Total: 0</div>
+      </div>
     </div>
   `;
   
   elements.scoringRows.insertAdjacentHTML('beforeend', rowHtml);
   const newRow = elements.scoringRows.lastElementChild;
   newRow.querySelectorAll('input').forEach(input => input.addEventListener('input', () => updateRowScore(newRow)));
+  
+  // Ensure state tracking objects exist for this player
+  if (!gameScores[player]) gameScores[player] = {};
+  if (!roundInputs[currentRound]) roundInputs[currentRound] = {};
+
   updateRowScore(newRow);
 }
 
-// Reads values from a specific row's inputs to recalculate and display the round score dynamically
+// Reads values from a specific row's inputs to recalculate and display the round score and total score dynamically
 function updateRowScore(rowElement) {
   const index = rowElement.dataset.index;
-  const bid = parseInt(rowElement.querySelector('.bid-input').value, 10) || 0;
-  const won = parseInt(rowElement.querySelector('.won-input').value, 10) || 0;
-  const bonus = parseInt(rowElement.querySelector('.bonus-input').value, 10) || 0;
+  const player = rowElement.dataset.player;
   
-  const score = calculateScore(bid, won, bonus, currentRound);
+  // Get string values first so we can check if they are blank
+  const bidStr = rowElement.querySelector('.bid-input').value;
+  const wonStr = rowElement.querySelector('.won-input').value;
+  const bonusStr = rowElement.querySelector('.bonus-input').value;
+  
   const scoreDisplay = document.getElementById(`score-display-${index}`);
+  const totalScoreDisplay = document.getElementById(`total-score-${index}`);
   
-  const sign = score > 0 ? '+' : '';
-  scoreDisplay.textContent = `${sign}${score}`;
+  // Save exact inputs to state so round switching doesn't delete them
+  if (!roundInputs[currentRound]) roundInputs[currentRound] = {};
+  roundInputs[currentRound][player] = { bid: bidStr, won: wonStr, bonus: bonusStr };
   
-  scoreDisplay.className = 'score-display';
-  if (score > 0) scoreDisplay.classList.add('score-positive');
-  else if (score < 0) scoreDisplay.classList.add('score-negative');
-  else scoreDisplay.classList.add('score-zero');
+  // If either required input is completely empty, don't run math
+  if (bidStr === '' || wonStr === '') {
+     scoreDisplay.textContent = '0';
+     scoreDisplay.className = 'score-display round-score score-zero';
+     gameScores[player][currentRound] = 0; 
+  } else {
+     // Safe to parse as integers
+     const bid = parseInt(bidStr, 10);
+     const won = parseInt(wonStr, 10);
+     const bonus = parseInt(bonusStr, 10) || 0;
+     
+     const score = calculateScore(bid, won, bonus, currentRound);
+     
+     const sign = score > 0 ? '+' : '';
+     scoreDisplay.textContent = `${sign}${score}`;
+     
+     scoreDisplay.className = 'score-display round-score';
+     if (score > 0) scoreDisplay.classList.add('score-positive');
+     else if (score < 0) scoreDisplay.classList.add('score-negative');
+     else scoreDisplay.classList.add('score-zero');
+     
+     gameScores[player][currentRound] = score; // Save to memory
+  }
+  
+  // --- Calculate and output Total Score ---
+  let totalScore = 0;
+  if (gameScores[player]) {
+      Object.values(gameScores[player]).forEach(s => totalScore += s);
+  }
+  if (totalScoreDisplay) {
+      totalScoreDisplay.textContent = `Total: ${totalScore}`;
+  }
 }
 
 // Executes script immediately 

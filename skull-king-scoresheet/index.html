@@ -5,41 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skull King Score Tracker</title>
   <link rel="stylesheet" href="style.css">
-  <script src="main.js" defer></script>
 </head>
 <body>
   <header class="app-header">
     <div class="brand">
       <div class="logo">
-        <img src="white-skull.png" alt="Skull King Logo" class="logo-img">
+        <span style="font-size: 2rem;">☠️</span>
       </div>
       <div class="title-group">
         <h1>SKULL KING</h1>
-        <span class="subtitle">SCORE TRACKER</span>
+        <div class="subtitle">SCORE TRACKER</div>
       </div>
     </div>
-    
     <div class="round-nav">
-      <span class="round-label">ROUND</span>
-      <button id="prev-round" class="nav-btn">‹</button>
-      <div class="round-display">
-        <span id="current-round-text" class="highlight">1</span> / 10
-      </div>
-      <button id="next-round" class="nav-btn">›</button>
+      <span>ROUND</span>
+      <button class="nav-btn" id="prev-round">‹</button>
+      <span class="highlight"><span id="nav-current-round">1</span> / 10</span>
+      <button class="nav-btn" id="next-round">›</button>
       <div class="round-dots" id="round-dots">
+        <!-- Dots injected via JS -->
       </div>
     </div>
   </header>
 
   <main>
     <section class="panel">
-      <h2>CREW MANIFEST</h2>
+      <h2><span class="gold-dash">—</span> CREW MANIFEST</h2>
       <div class="manifest-controls">
-        <div id="crew-list" class="crew-list">
+        <div class="crew-list" id="crew-list">
+          <!-- Crew injected via JS -->
         </div>
         <div class="add-crew-input">
           <input type="text" id="new-player-name" placeholder="Add crew member...">
-          <button id="add-player-btn" class="btn-gold">+ ADD</button>
+          <button class="btn-gold" id="add-player-btn">+ ADD</button>
         </div>
       </div>
     </section>
@@ -62,13 +60,16 @@
           <div>BID</div>
           <div>TRICKS WON</div>
           <div>BONUS PTS</div>
-          <div class="align-right">ROUND SCORE</div>
+          <div>SCORE</div>
         </div>
         
         <div id="scoring-rows" class="table-body">
+          <!-- Scoring rows injected via JS -->
         </div>
       </div>
     </section>
   </main>
+
+  <script src="main.js"></script>
 </body>
 </html>
