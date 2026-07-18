@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skull King Score Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo">
+        <img src="white-skull.png" alt="Skull King Logo" class="logo-img">
+      </div>
+      <div class="title-group">
+        <h1>SKULL KING</h1>
+        <span class="subtitle">SCORE TRACKER</span>
+      </div>
+    </div>
+    
+    <div class="round-nav">
+      <span class="round-label">ROUND</span>
+      <button id="prev-round" class="nav-btn">‹</button>
+      <div class="round-display">
+        <span id="current-round-text" class="highlight">1</span> / 10
+      </div>
+      <button id="next-round" class="nav-btn">›</button>
+      <div class="round-dots" id="round-dots">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>CREW MANIFEST</h2>
+      <div class="manifest-controls">
+        <div id="crew-list" class="crew-list">
+        </div>
+        <div class="add-crew-input">
+          <input type="text" id="new-player-name" placeholder="Add crew member...">
+          <button id="add-player-btn" class="btn-gold">+ ADD</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="scoring-header">
+        <h2><span class="gold-dash">—</span> ROUND <span id="scoring-round-text">1</span> — BID ENTRY</h2>
+        <div class="round-globals">
+          <span class="tricks-available" id="tricks-available">1 trick available</span>
+          <div class="global-kraken">
+            <label for="global-kraken-checkbox">KRAKEN PLAYED:</label>
+            <input type="checkbox" id="global-kraken-checkbox" class="kraken-checkbox">
+          </div>
+        </div>
+      </div>
+
+      <div class="scoring-table">
+        <div class="table-header">
+          <div>PLAYER</div>
+          <div>BID</div>
+          <div>TRICKS WON</div>
+          <div>BONUS PTS</div>
+          <div class="align-right">ROUND SCORE</div>
+        </div>
+        
+        <div id="scoring-rows" class="table-body">
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
