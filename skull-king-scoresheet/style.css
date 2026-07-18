@@ -4,7 +4,7 @@
   --panel-border: #1a2f4c;
   --gold: #d4b05a;
   --text-main: #e2e8f0;
-  --text-muted: #cbd5e1; /* Lightened for accessibility */
+  --text-muted: #cbd5e1;
   --input-bg: #18283d;
   --green-score: #4ade80;
   --red-score: #f87171;
@@ -23,7 +23,6 @@ body {
   padding-bottom: 2rem;
 }
 
-/* Header Styles */
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -45,6 +44,12 @@ body {
   justify-content: center;
 }
 
+.logo-img {
+  width: 48px;
+  height: auto;
+  display: block;
+}
+
 .title-group h1 {
   color: var(--gold);
   font-family: Georgia, serif;
@@ -60,7 +65,6 @@ body {
   text-transform: uppercase;
 }
 
-/* Round Navigation */
 .round-nav {
   display: flex;
   align-items: center;
@@ -108,7 +112,6 @@ body {
   background-color: var(--gold);
 }
 
-/* Main Layout & Panels */
 main {
   max-width: 1200px;
   margin: 2rem auto;
@@ -138,7 +141,6 @@ main {
   color: var(--gold);
 }
 
-/* Crew Manifest */
 .manifest-controls {
   display: flex;
   flex-wrap: wrap;
@@ -195,6 +197,23 @@ input[type="text"]::placeholder {
   color: var(--text-muted);
 }
 
+.number-input {
+  width: 80px; 
+  text-align: center; 
+  padding: 0.5rem; 
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 .btn-gold {
   background-color: rgba(212, 176, 90, 0.2);
   color: var(--gold);
@@ -209,7 +228,6 @@ input[type="text"]::placeholder {
   background-color: rgba(212, 176, 90, 0.3);
 }
 
-/* Scoring Header */
 .scoring-header {
   display: flex;
   justify-content: space-between;
@@ -267,7 +285,6 @@ input[type="text"]::placeholder {
   justify-self: end;
 }
 
-/* Desktop Grid */
 .scoring-row {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
@@ -301,7 +318,6 @@ input[type="text"]::placeholder {
   margin-bottom: 0.25rem;
 }
 
-/* Score Wrapper */
 .score-wrapper {
   display: flex;
   flex-direction: column;
@@ -326,14 +342,12 @@ input[type="text"]::placeholder {
 .score-negative { color: var(--red-score); }
 .score-zero { color: var(--text-muted); }
 
-/* Desktop Hiding Labels */
 @media (min-width: 901px) {
   .scoring-row .input-group label {
     display: none;
   }
 }
 
-/* Mobile Overrides */
 @media (max-width: 900px) {
   .app-header {
     flex-direction: column;
@@ -375,14 +389,13 @@ input[type="text"]::placeholder {
     justify-self: center;
   }
 
-  /* Accommodate Wrapper on Mobile */
   .score-wrapper {
     grid-column: span 3;
     width: 100%;
     border-top: 1px solid var(--panel-border);
     padding-top: 0.75rem;
     margin-top: 0.5rem;
-    align-items: center; /* Centers both text lines */
+    align-items: center;
     justify-self: stretch;
   }
 
@@ -393,7 +406,8 @@ input[type="text"]::placeholder {
 
   .number-input {
     width: 100%;
-    padding: 1rem;
+    max-width: 90px; 
+    padding: 0.75rem 0.5rem; 
   }
 
   .input-group {
